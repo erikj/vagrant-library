@@ -1,21 +1,21 @@
 {
-  "description": "based on https://github.com/chef/bento/blob/master/fedora-25-x86_64.json",
+  "description": "based on https://github.com/chef/bento/blob/master/centos-7.3-x86_64.json",
   "builders": [
     {
       "boot_command": [
-        "<tab> linux ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `ks_path`}}<enter><wait>"
+        "<tab> text ks=http://{{ .HTTPIP }}:{{ .HTTPPort }}/{{user `ks_path`}}<enter><wait>"
       ],
       "boot_wait": "10s",
       "disk_size": "{{user `disk_size`}}",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      "guest_os_type": "Fedora_64",
+      "guest_os_type": "RedHat_64",
       "hard_drive_interface": "sata",
       "headless": "{{ user `headless` }}",
       "http_directory": "http",
       "iso_checksum": "{{user `iso_checksum`}}",
       "iso_checksum_type": "{{user `iso_checksum_type`}}",
       "iso_url": "{{user `iso_url`}}",
-      "output_directory": "{{user `output_directory_base`}}/packer.{{user `vm_name`}}.virtualbox.{{isotime \"20060102\"}}",
+      "output_directory": "{{user `output_directory_base`}}/packer.{{user `box_basename`}}.virtualbox.{{isotime \"20060102\"}}",
       "shutdown_command": "echo 'vagrant'|sudo -S shutdown -P now",
       "ssh_password": "vagrant",
       "ssh_port": 22,
@@ -37,12 +37,12 @@
         ]
       ],
       "virtualbox_version_file": ".vbox_version",
-      "vm_name": "{{ user `template` }}"
+      "vm_name": "{{ user `box_basename` }}"
     }
   ],
   "post-processors": [
     {
-      "output": "{{user `output_directory_base`}}/{{user `box_basename`}}.{{.Provider}}.box",
+      "output": "{{user `output_directory_base`}}/{{user `template`}}.{{.Provider}}.box",
       "type": "vagrant"
     }
   ],
@@ -64,7 +64,7 @@
         "https_proxy={{user `https_proxy`}}",
         "no_proxy={{user `no_proxy`}}"
       ],
-      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+      "execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S sh -eux '{{.Path}}'",
       "scripts": [
         "scripts/metadata.sh",
         "scripts/fix-slow-dns.sh",
@@ -99,7 +99,7 @@
     "metadata": "floppy/dummy_metadata.json",
     "name": "centos7-gnome",
     "no_proxy": "{{env `no_proxy`}}",
-    "template": "centos7-desktop-{{isotime \"20060102\"}}",
+    "template": "centos7-gnome-{{isotime \"20060102\"}}",
     "version": "2.0.TIMESTAMP"
   }
 }
