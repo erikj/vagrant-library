@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=My gsettings
+GenericName=Initialize my gsettings
+Exec=/home/vagrant/my-gsettings.sh
+Terminal=false
+Type=Application
+X-GNOME-Autostart-enabled=true

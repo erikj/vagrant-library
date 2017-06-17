@@ -58,6 +58,16 @@
       "destination": "/tmp/custom.conf"
     },
     {
+      "type": "file",
+      "source": "my-gsettings.sh",
+      "destination": "/tmp/"
+    },
+    {
+      "type": "file",
+      "source": "my-gsettings.desktop",
+      "destination": "/tmp/"
+    },
+    {
       "environment_vars": [
         "HOME_DIR=/home/vagrant",
         "http_proxy={{user `http_proxy`}}",

@@ -18,19 +18,6 @@ systemctl set-default graphical.target
 #
 mv /tmp/custom.conf /etc/gdm/
 
-#
-# disable lockscreen and screensaver
-#
-sudo -u vagrant mkdir -p /home/vagrant/.config/gconf
-sudo -u vagrant gconftool-2 --set /schemas/desktop/gnome/lockdown/disable_lock_screen --type boolean true
-sudo -u vagrant gconftool-2 --set /schemas/apps/gnome-screensaver/lock_enabled --type boolean false
-sudo -u vagrant gconftool-2 --set /schemas/apps/gnome-screensaver/idle_activation_enabled --type boolean false
-
-# #
-# # disable cursor blinking
-# #
-# sudo -u vagrant gconftool-2 --set /apps/gnome-terminal/profiles/Default/cursor_blink --type boolean false
-sudo -u vagrant gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/terminal/legacy/profiles:/:$(gsettings get org.gnome.Terminal.ProfilesList default|tr -d \')/ cursor-blink-mode off
 
 #
 # add vagrant user to vboxsf group, for accessing shared folders
@@ -42,3 +29,9 @@ sudo -u vagrant gsettings set org.gnome.Terminal.Legacy.Profile:/org/gnome/termi
 #
 sudo -u vagrant mkdir -p /home/vagrant/.config/autostart
 sudo -u vagrant ln -s /usr/share/applications/gnome-terminal.desktop /home/vagrant/.config/autostart
+
+#
+# stage script to initialize gsettings
+#
+sudo -u vagrant cp /tmp/my-gsettings.sh /home/vagrant/
+sudo -u vagrant cp /tmp/my-gsettings.desktop /home/vagrant/.config/autostart
