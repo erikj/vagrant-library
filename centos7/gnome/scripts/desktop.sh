@@ -5,8 +5,9 @@
 #
 # yum -y install xorg-x11-server-Xorg gcc
 # yum -y groupinstall gnome
-yum groupinstall -y "GNOME Desktop" "Graphical Administration Tools"
-yum -y install gdm
+
+yum -y groupinstall "X Window System"
+yum -y install gnome-classic-session gnome-terminal nautilus-open-terminal control-center liberation-mono-fonts
 
 #
 # set runlevel to 5, to boot to GDM
